@@ -1,13 +1,7 @@
-FROM continuumio/anaconda
+FROM jupyter/scipy-notebook
 
-# enable utf-8 locale
-ENV PYTHONUNBUFFERED 1
+COPY environment.yml ./
 
-RUN conda install -y scikit-learn jupyter
+RUN conda env update --prune
 
-ENV PS1="# "
-
-CMD ["jupyter", "notebook", "--ip=*", "--allow-root" ]
-
-VOLUME /workspace
-WORKDIR /workspace
+RUN python3 -m ipykernel install --user --name cse627
